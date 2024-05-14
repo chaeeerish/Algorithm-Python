@@ -61,7 +61,8 @@ def build(answer, seq):
     new_answer = copy.deepcopy(answer)
     if (seq[0], seq[1]) in new_answer.keys():
         if seq[-1] == 1: # 설치
-            new_answer[(seq[0], seq[1])].add(seq[2])
+            if seq[2] not in new_answer[(seq[0], seq[1])]:
+                new_answer[(seq[0], seq[1])].add(seq[2])
         else:
             if seq[2] in new_answer[(seq[0], seq[1])]:
                 new_answer[(seq[0], seq[1])].remove(seq[2])
