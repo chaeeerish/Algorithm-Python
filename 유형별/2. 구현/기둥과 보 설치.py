@@ -36,23 +36,26 @@ def check_existence(answer, x, y, type):
 
 def check_rule(answer):
     for key in answer:
+        flag1, flag2 = True, True
         if 0 in answer[key]: # 기둥
+            flag1 = False
             if key[0] == 0:
-                continue
+                flag1 = True
             if check_existence(answer, key[0], key[1], 1):
-                continue
+                flag1 = True
             if check_existence(answer, key[0], key[1] - 1, 1):
-                continue
+                flag1 = True
             if check_existence(answer, key[0] - 1, key[1], 0):
-                continue
-            return False
+                flag1 = True
         if 1 in answer[key]: # 보
+            flag2 = False
             if check_existence(answer, key[0] - 1, key[1], 0):
-                continue
+                flag2 = True
             if check_existence(answer, key[0] - 1, key[1] + 1, 0):
-                continue
+                flag2 = True
             if check_existence(answer, key[0], key[1] - 1, 1) and check_existence(answer, key[0], key[1] + 1, 1):
-                continue
+                flag2 = True
+        if flag1 == False or flag2 == False:
             return False
     return True
 
