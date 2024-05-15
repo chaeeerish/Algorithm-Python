@@ -22,5 +22,4 @@ def solution(n, weak, dist):
 
     if minCnt == math.inf:
         return -1
-
     return minCnt
