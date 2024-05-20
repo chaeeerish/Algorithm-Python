@@ -4,7 +4,6 @@ def solution(words, queries):
     for query in queries:
         start, end = query.find('?'), query.rfind('?')
         keyword = query[:start] + query[end+1:]
-
         filtered = [word[:start] + word[end+1:] for word in words if len(word) == len(query) and word[:start] + word[end+1:] == keyword]
         answer.append(len(filtered))
     return answer
