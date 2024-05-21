@@ -1,36 +1,18 @@
-def get_max_list(cand1, cand2):
-    sum1 = sum(cand1)
-    sum2 = sum(cand2)
+import sys
+n = int(sys.stdin.readline())
+array = list(map(int, sys.stdin.readline().split()))
 
-    if sum1 >= sum2:
-        return cand1
-    else:
-        return cand2
+array.reverse()
 
-n = int(input())
-array = list(map(int, input().split()))
+dp = [1] * n
 
-dp = [() for _ in range(n)]
-dp[n - 1] = ([array[n - 1]], [])
+for i in range(1, n):
+    for j in range(0, i):
+        if array[j] < array[i]:
+            dp[i] = max(dp[i], dp[j] + 1)
 
-for i in range(n - 2, -1, -1):
-    # 포함
-    cand1 = []
-    if len(dp[i + 1][0]) > 0 and array[i] > dp[i + 1][0][0]:
-        cand1 = [array[i]] + dp[i + 1][0]
+print(n - max(dp))
 
-
-    cand2 = []
-    if len(dp[i + 1][1]) > 0 and array[i] > dp[i + 1][1][0]:
-        cand2 = [array[i]] + dp[i + 1][1]
-
-    # 미포함
-    cand3 = get_max_list(dp[i + 1][0], dp[i + 1][1])
-
-    # 반영
-    dp[i] = (get_max_list(cand1, cand2), cand3)
-
-print(n - len(get_max_list(dp[0][0], dp[0][1])))
 
 """
 # 2
