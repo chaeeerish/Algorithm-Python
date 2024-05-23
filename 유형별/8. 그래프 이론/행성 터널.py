@@ -1,4 +1,5 @@
 import sys
+input = sys.stdin.readline
 
 def find_parent(parent, a):
     if parent[a] != a:
@@ -13,7 +14,6 @@ def union_parent(parent, a, b):
     else:
         parent[a] = b
 
-input = sys.stdin.readline
 n = int(input())
 
 x_list = []
