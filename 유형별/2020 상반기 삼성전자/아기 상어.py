@@ -19,70 +19,43 @@ for i in range(n):
             heapq.heappush(물고기_리스트, (공간[i][j], i, j))
 공간[현재_위치[0]][현재_위치[1]] = 0
 
-def 먹을_수_있는_물고기_구하기(물고기_리스트, 상어_사이즈):
-    후보 = []
-    for 물고기 in 물고기_리스트:
-        if 물고기[0] < 상어_사이즈:
-            후보.append(물고기)
-        else:
-            continue
-    return 후보
-
-def 최단_거리_구하기(공간, 현재_위치, 목표_위치, 상어_사이즈):
+def 다음_위치_선정하기(공간, 현재_위치, 상어_사이즈):
     q = deque()
     q.appendleft((0, 현재_위치[0], 현재_위치[1]))
 
-    dx = [-1, 0, 1, 0]
-    dy = [0, -1, 0, 1]
+    dx = [0, -1, 0, 1]
+    dy = [-1, 0, 1, 0]
     visited = [[False] * n for _ in range(n)]
 
+    dist, x, y = 0, 현재_위치[0], 현재_위치[1]
+    candidate = []
     while q:
         dist, x, y = q.popleft()
         visited[x][y] = True
-        if x == 목표_위치[1] and y == 목표_위치[2]:
-            return dist
+        if 공간[x][y] != 0 and 공간[x][y] < 상어_사이즈:
+            candidate.append((dist, x, y))
 
         dist += 1
         for i in range(4):
             nx = x + dx[i]
             ny = y + dy[i]
-            if 0 <= nx < len(공간) and 0 <= ny < len(공간) and 공간[nx][ny] <= 상어_사이즈 and not visited[nx][ny]:
+            if 0 <= nx < len(공간) and 0 <= ny < len(공간) and 공간[nx][ny] <= 상어_사이즈 and not visited[nx][ny] and (dist, nx, ny) not in q:
                 q.append((dist, nx, ny))
-    return -1
 
-def 가장_가까운_물고기(공간, 물고기_리스트, 현재_위치, 상어_사이즈):
-    최소_좌표 = []
-    for 물고기 in 물고기_리스트:
-        거리 = 최단_거리_구하기(공간, 현재_위치, 물고기, 상어_사이즈)
-        if 거리 != -1:
-            최소_좌표.append((거리, 물고기[1], 물고기[2]))
-    최소_좌표.sort()
+    if len(candidate) == 0:
+        return -1, -1, -1
 
-    if len(최소_좌표) >= 1:
-        최소_거리 = 최소_좌표[0][0]
-        return [물고기 for 물고기 in 최소_좌표 if 물고기[0] == 최소_거리]
-    else:
-        return []
-
-def 다음_위치_선정하기(공간, 물고기_리스트, 현재_위치, 상어_사이즈):
-    # 갈 수 있는 사이즈 중에서 가장 가까운
-    후보 = 먹을_수_있는_물고기_구하기(물고기_리스트, 상어_사이즈)
-    후보 = 가장_가까운_물고기(공간, 후보, 현재_위치, 상어_사이즈)
-    if len(후보) == 0:
-        return (-1, -1, -1)
-
-    후보.sort(key=lambda x:(x[1], x[2]))
-    return 후보[0] # (거리, x, y)
+    candidate.sort(key=lambda x:(x[0], x[1], x[2]))
+    return candidate[0]
 
 time = 0
 count = 0
 while True:
-    거리, 다음_위치_x, 다음_위치_y = 다음_위치_선정하기(공간, 물고기_리스트, 현재_위치, 상어_사이즈)
+    거리, 다음_위치_x, 다음_위치_y = 다음_위치_선정하기(공간, 현재_위치, 상어_사이즈)
     if 거리 == -1:
         break
 
     time += 거리
-    물고기_리스트.remove((공간[다음_위치_x][다음_위치_y], 다음_위치_x, 다음_위치_y))
     공간[다음_위치_x][다음_위치_y] = 0
     현재_위치 = (다음_위치_x, 다음_위치_y)
 
