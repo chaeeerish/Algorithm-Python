@@ -29,7 +29,7 @@ def solution(arr1, arr2):
     return answer
 ```
 
-zip과 sum을 사용하여 컴프리헨션으로 풀어낸 풀이
+zip과 sum을 사용하여 컴프리헨션으로 풀어낸 풀이는 다음과 같다.
 ```python
 A = [[1, 4], [3, 2], [4, 1]]
 B = [[3, 3], [3, 3]]
