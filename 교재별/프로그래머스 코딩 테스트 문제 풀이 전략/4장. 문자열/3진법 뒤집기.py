@@ -5,10 +5,7 @@ def solution(n):
         몫, 나머지 = divmod(몫, 3)
         진법_결과.insert(0, 나머지)
 
-    answer = 0
-    for i in range(len(진법_결과)):
-        answer += 진법_결과[i] * (3 ** i)
-    return answer
+    return sum(value * (3 ** i) for i, value in enumerate(진법_결과))
 
 # 7
 print(solution(45))
