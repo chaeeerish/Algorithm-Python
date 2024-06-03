@@ -1,22 +1,12 @@
 def solution(s):
-    i = 0
-    while True:
-        if i >= len(s) - 1:
-            break
-
-        if s[i] == s[i + 1]:
-            s = s[:i] + s[i + 2:]
-            if i == 0:
-                i = 0
-            else:
-                i = i - 1
+    stack = []
+    for char in s:
+        if len(stack) == 0 or stack[-1] != char:
+            stack.append(char)
         else:
-            i += 1
+            stack.pop()
 
-    if s == '':
-        return 1
-    else:
-        return 0
+    return 1 if not stack else 0
 
 # 1
 print(solution("baabaa"))
