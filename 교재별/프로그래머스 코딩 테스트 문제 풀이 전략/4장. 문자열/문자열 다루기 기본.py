@@ -1,7 +1,5 @@
 def solution(s):
-    if (len(s) == 4 or len(s) == 6) and s.isnumeric():
-        return True
-    return False
+    return s.isnumeric() and len(s) in [4, 6]
 
 # false
 print(solution("a234"))
