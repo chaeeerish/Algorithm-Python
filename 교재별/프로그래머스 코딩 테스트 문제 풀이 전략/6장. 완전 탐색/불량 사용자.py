@@ -1,35 +1,24 @@
-import copy
-from itertools import product
-
-
-def get_index_list(s):
-    result = []
-    for i in range(len(s)):
-        if s[i] == '*':
-            result.append(i)
-    return result
+import re
+import itertools
 
 
 def solution(user_id, banned_id):
-    answer = 1
-    for b in banned_id:
-        index = get_index_list(b)
-        cnt = 0
+    available = [[] for _ in range(len(banned_id))]
+    for i in range(len(banned_id)):
+        b = banned_id[i]
+        new_b = b.replace('*', '[a-z0-9]')
+        p = re.compile(new_b)
 
-        for iter in product("abcdefghijklmnopqrstuvwxyng1234567890", repeat=b.count('*')):
-            new_b = copy.deepcopy(b)
-            temp = 0
-            for i in index:
-                new_b = new_b[:i] + iter[temp] + new_b[i+1:]
-                temp += 1
-            if new_b in user_id:
-                print(new_b)
-                cnt += 1
+        for u in user_id:
+            if len(b) == len(u) and p.match(u):
+                available[i].append(u)
 
-        # print(answer, "에", cnt, "를 곱합니다.")
-        answer *= cnt
+    result = []
+    for iter in itertools.product(*available):
+        if len(banned_id) == len(set(iter)) and set(iter) not in result:
+            result.append(set(iter))
 
-    return answer
+    return len(result)
 
 # 2
 print(solution(["frodo", "fradi", "crodo", "abc123", "frodoc"], ["fr*d*", "abc1**"]))
