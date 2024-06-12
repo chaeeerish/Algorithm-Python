@@ -3,37 +3,42 @@ def bisect_left(score, x):
     right = len(score) - 1
     while left <= right:
         mid = (left + right) // 2
-        if score[mid][0] >= x:
+        if score[mid] >= x:
             right = mid - 1
-        else: # score[mid][0] < x
+        else:  # score[mid] < x
             left = mid + 1
     return left
 
-def solution(info, query):
-    language = {"cpp": set(), "java": set(), "python": set(), "-": set(range(len(info)))}
-    part = {"backend": set(), "frontend": set(), "-": set(range(len(info)))}
-    career = {"junior": set(), "senior": set(), "-": set(range(len(info)))}
-    soulfood = {"chicken": set(), "pizza": set(), "-": set(range(len(info)))}
-    score = []
 
-    for i in range(len(info)):
-        data = info[i].split(" ")
-        language[data[0]].add(i)
-        part[data[1]].add(i)
-        career[data[2]].add(i)
-        soulfood[data[3]].add(i)
-        score.append((int(data[4]), i))
-    score.sort()
+def solution(info, query):
+    dictionary = dict()
+    for language in ["cpp", "java", "python", "-"]:
+        for part in ["backend", "frontend", "-"]:
+            for career in ["junior", "senior", "-"]:
+                for soulfood in ["chicken", "pizza", "-"]:
+                    dictionary[language + part + career + soulfood] = []
+
+    for i in info:
+        data = i.split(" ")
+        for language in [data[0], "-"]:
+            for part in [data[1], "-"]:
+                for career in [data[2], "-"]:
+                    for soulfood in [data[3], "-"]:
+                        dictionary[language + part + career + soulfood].append(int(data[4]))
+
+    for language in ["cpp", "java", "python", "-"]:
+        for part in ["backend", "frontend", "-"]:
+            for career in ["junior", "senior", "-"]:
+                for soulfood in ["chicken", "pizza", "-"]:
+                    dictionary[language + part + career + soulfood].sort()
 
     answer = []
-    for q in query: # cpp and - and senior and pizza 250
+    for q in query:
         data = q.split(" ")
-        if data[7] != "-":
-            left_index = bisect_left(score, int(data[7]))
-            applicant = language[data[0]] & part[data[2]] & career[data[4]] & soulfood[data[6]] & set([a[1] for a in score[left_index:]])
-        else:
-            applicant = language[data[0]] & part[data[2]] & career[data[4]] & soulfood[data[6]]
-        answer.append(len(applicant))
+        array = dictionary[data[0] + data[2] + data[4] + data[6]]
+        left_index = bisect_left(array, int(data[7]))
+        answer.append(len(array) - left_index)
+
     return answer
 
 # [1, 1, 1, 1, 2, 4]
