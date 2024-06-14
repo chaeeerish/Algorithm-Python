@@ -38,4 +38,48 @@ def solution(n, times):
             right = mid - 1
         else:
             left = mid + 1
-    return answer```
+    return answer
+```
+
+### 징검다리
+🔗 문제: https://school.programmers.co.kr/learn/courses/30/lessons/43236
+❗️ 배운점
+1. left, right, mid를 이용한 이분 탐색의 대상을 문제에서 물어본 "징검다리 각 지점 사이의 거리의 최소값 중에 가장 큰 값"으로 잡았다.
+2. 확실히 이분 탐색안에 전체 rock 반복문을 돌리니까 시간 복잡도가 확 줄어드는 것 같다.
+```python
+    while left <= right:
+        mid = (left + right) // 2
+
+        delete = 0
+        pre_rock = 0 # 이전 바위의 위치
+        for rock in rocks:
+            dist = rock - pre_rock
+            if dist < mid:
+                delete += 1
+
+                if delete > n:
+                    break
+            else:
+                pre_rock = rock
+
+        if delete > n:
+            right = mid - 1
+        else:
+            answer = max(answer, mid)
+            left = mid + 1
+```
+
+### 징검다리 건너기
+🔗 문제: 
+❗️ 배운점: 간단하게 한다고 문자열 변환과 조인 연산을 수행하였는데 이게 오버 시간의 원인이 된 것 같다. 그래서 for문으로 바꾸고, 중간에 조건이 맞지 않으면 break하는 방식으로 변경하였다.
+```python
+        consecutive = 0
+        for stone in stones:
+            if stone <= mid:
+                consecutive += 1
+            else:
+                consecutive = 0
+
+            if consecutive >= k:
+                break
+```
