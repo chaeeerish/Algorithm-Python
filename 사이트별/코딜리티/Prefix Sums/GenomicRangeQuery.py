@@ -11,23 +11,20 @@ DNA = S = S[0]S[1]...S[N-1] (N개의 문자로 이루어진 문자열)
 K번째 쿼리는 P[K]와 Q[k] 사이의 DNA 배열을 포함하는 최소 impact factor을 찾도록 요청할 것이다.
 
 '''
-import random
 
 
 def solution(S, P, Q):
-    impact_factor = {'A': 1, 'C': 2, 'G': 3, 'T': 4}
-
-    array = ['A'] * len(S)
-    for i in range(len(S)):
-        array[i] = impact_factor[S[i]]
-
     result = []
     for i in range(len(P)):
-        result.append(min(array[P[i]:Q[i] + 1]))
+        if 'A' in S[P[i]:Q[i] + 1]:
+            result.append(1)
+        elif 'C' in S[P[i]:Q[i] + 1]:
+            result.append(2)
+        elif 'G' in S[P[i]:Q[i] + 1]:
+            result.append(3)
+        else:
+            result.append(4)
     return result
 
 
 print(solution('CAGCCTA', [2, 5, 0], [4, 5, 6]))
-# input_string = ''.join(random.choices(['A', 'C', 'G', 'T'], k=1000000))
-# print(input_string)
-# print(solution(input_string, [2, 5, 0], [4, 5, 6]))
