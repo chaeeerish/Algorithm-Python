@@ -88,3 +88,82 @@ def solution(n, times):
 🔗 문제: https://school.programmers.co.kr/learn/courses/30/lessons/42579  
 ❗️ 배운점: 딕셔너리의 정렬은 다음과 같다. `총_재생_횟수 = sorted(총_재생_횟수.items(), key=lambda item: item[1], reverse=True)`  
 (.items()는 딕셔너리의 모든 키-쌍을 튜플로 반환한다.)
+
+### MaxCounters
+🔗 문제: https://app.codility.com/programmers/lessons/4-counting_elements/max_counters/start/
+1. 배운점: O(n)의 시간복잡도를 가지는 max 함수를 매번 호출할 필요가 뭐있어? 변수에 저장해두면 되지.
+```python
+def solution(N, A):
+    result = [0] * N
+
+    max_value = 0
+    for i in range(len(A)):
+        if A[i] == N + 1:
+            result = [max_value] * N # [max(result)] * N
+        else:
+            result[A[i] - 1] += (1 + max_value)
+            if result[A[i] - 1] > max_value:
+                max_value = result[A[i] - 1]
+
+    return result
+```
+2. 배운점: 최대한 변수에 저장해서, O(n^2)를 만들지 말자.
+```python
+def solution(N, A):
+    result = [0] * N
+
+    max_value = 0
+    last_update = 0
+    for i in range(len(A)):
+        if 1 <= A[i] <= N:
+            if result[A[i] - 1] < last_update:
+                result[A[i] - 1] = last_update
+            result[A[i] - 1] += 1
+            if result[A[i] - 1] > max_value:
+                max_value = result[A[i] - 1]
+        else:
+            last_update = max_value
+
+    for i in range(len(result)):
+        if result[i] < last_update:
+            result[i] = last_update
+
+    return result
+```
+
+### Triangle
+🔗 문제: https://app.codility.com/c/run/trainingX4FUTA-4TC/
+❗️ 배운점: 100000개의 배열에서 3개 조합을 찾는 것은 n^3의 시간복잡도에 가까운 일이므로 불가능하다.  
+또한, 다음의 조건을 만족하기 위해서는 인접한 인덱스만 비교하면 된다. 따라서, O(n)의 시간복잡도로 풀 수 있다.
+- A[P] + A[Q] > A[R],
+- A[Q] + A[R] > A[P],
+- A[R] + A[P] > A[Q].
+
+### NumberOfDiscIntersections
+🔗 문제: https://app.codility.com/programmers/lessons/6-sorting/number_of_disc_intersections/start/
+❗️ 배운점: 문제를 푸는 방식을 아예 생각을 못했다. 정렬을 하다니 .. 그리고 겹치는 부분을 1씩 늘려가다니 ..
+![img.png](img.png)  
+(출처: https://lipcoder.tistory.com/197)
+
+```python
+def solution(A):
+    events = []
+    for i, v in enumerate(A):
+        events.append(((i - v), -1))
+        events.append(((i + v), 1))
+    events.sort()
+
+    result = 0
+    count = 0
+
+    for i in range(len(events)):
+        if events[i][1] == 1:
+            count -= 1
+        elif events[i][1] == -1:
+            result += count
+            count += 1
+
+        if result > 10000000:
+            return -1
+    return result
+```
