@@ -167,3 +167,32 @@ def solution(A):
             return -1
     return result
 ```
+
+### NumberOfDiscIntersections
+🔗 문제: https://app.codility.com/programmers/lessons/7-stacks_and_queues/fish/ 
+❗️ 배운점: 상류로 올라가는 물고기가 한 물고기를 먹고 그 뒤에 있는 물고기도 먹을 수 있다는걸 고려하지 못했다.. !!! 틀린 이유는 꼼꼼히 적으면서 문제를 보지 않아서 그런듯 하다.
+```python
+def solution(A, B):
+    queue = deque()
+
+    for i in range(0, len(A)):
+        if B[i] == 1:
+            queue.append((B[i], A[i]))
+        else: # B[i] == 0:
+            queue.append((B[i], A[i]))
+            j = len(queue) - 1
+            while 0 <= j <= len(A) - 1:
+                if queue[j - 1][0] == 1:
+                    elem_j = queue.pop()
+                    elem_j_1 = queue.pop()
+                    if elem_j[1] > elem_j_1[1]:
+                        queue.append(elem_j)
+                        j -= 1
+                    else:
+                        queue.append(elem_j_1)
+                        break
+                else: # queue[j - 1][0] == 0:
+                    break
+
+    return len(queue)
+```
