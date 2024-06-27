@@ -13,5 +13,6 @@ def solution(S):
     else:
         return 0
 
+
 print(solution('(()(())())'))
 print(solution('())'))
