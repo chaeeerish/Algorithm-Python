@@ -169,7 +169,7 @@ def solution(A):
 ```
 
 ### NumberOfDiscIntersections
-🔗 문제: https://app.codility.com/programmers/lessons/7-stacks_and_queues/fish/ 
+🔗 문제: https://app.codility.com/programmers/lessons/7-stacks_and_queues/fish/   
 ❗️ 배운점: 상류로 올라가는 물고기가 한 물고기를 먹고 그 뒤에 있는 물고기도 먹을 수 있다는걸 고려하지 못했다.. !!! 틀린 이유는 꼼꼼히 적으면서 문제를 보지 않아서 그런듯 하다.
 ```python
 def solution(A, B):
@@ -195,4 +195,27 @@ def solution(A, B):
                     break
 
     return len(queue)
+```
+
+### StoneWall
+🔗 문제: https://app.codility.com/programmers/lessons/7-stacks_and_queues/stone_wall/  
+❗️ 배운점: all을 사용하면 O(n^2)이 될 수 있다. 문제를 푸는 방식을 아예 생각을 못했다. 사실 시간복잡도를 많이 줄였음에도 타임에러가 발생했다. 그럴만 하다. 다음 해설 코드에서는 리스트를 한번만 읽고 답을 내기 때문이다.  
+많이 예시를 그려보고 원리를 찾으면 될까?  
+
+**이 문제에서 사용한 방식은 다음과 같다. 스택을 이용하고 이전의 블럭보다 큰 블럭을 세우고자 하면 blockCount를 올린다.**
+
+```python
+def solution(H):
+    blockCount = 0
+    blockStack = []
+
+    for i in range(len(H)):
+        while blockStack and blockStack[-1] < H[i]:
+            blockStack.pop()
+
+        if not blockStack or blockStack[-1] > H[i]:
+            blockCount += 1
+            blockStack.append(H[i])
+
+    return blockCount
 ```
