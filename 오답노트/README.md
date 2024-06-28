@@ -219,3 +219,22 @@ def solution(H):
 
     return blockCount
 ```
+
+### EquiLeader
+🔗 문제:
+❗️ 배운점
+1. 전체의 Leader 이어야만 나눴을 때도 Leader가 될 수 있는줄 몰랐다... 여러 예시로 시뮬레이션을 해보지 않아서 생긴 결과가 아닐까... Codility는 테스트 케이스가 불친절해서 더 그런 것 같다!!!
+2. **특정 count를 세기 위해서 이중 for문을 할 필요가 없다. left_count를 하나씩 늘려가면 ➡️ O(n) 시간으로 모든 count를 셀 수 있다.** (**🚨 이 문제의 핵심 🚨**)
+
+```python
+for i in range(len(A) - 1):
+    left_count = sum(1 for x in value_index if x <= i)
+    right_count = len(value_index) - left_count
+```
+⬇️
+```python
+for i in range(len(A) - 1):
+    if A[i] == value:
+        left_count += 1
+        right_count = full_count - left_count
+```
