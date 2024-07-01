@@ -221,7 +221,7 @@ def solution(H):
 ```
 
 ### EquiLeader
-🔗 문제:
+🔗 문제: https://app.codility.com/programmers/lessons/8-leader/equi_leader/  
 ❗️ 배운점
 1. 전체의 Leader 이어야만 나눴을 때도 Leader가 될 수 있는줄 몰랐다... 여러 예시로 시뮬레이션을 해보지 않아서 생긴 결과가 아닐까... Codility는 테스트 케이스가 불친절해서 더 그런 것 같다!!!
 2. **특정 count를 세기 위해서 이중 for문을 할 필요가 없다. left_count를 하나씩 늘려가면 ➡️ O(n) 시간으로 모든 count를 셀 수 있다.** (**🚨 이 문제의 핵심 🚨**)
@@ -237,4 +237,43 @@ for i in range(len(A) - 1):
     if A[i] == value:
         left_count += 1
         right_count = full_count - left_count
+```
+
+### MaxProfit
+🔗 문제: https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_profit/  
+❗️ 배운점:  
+1. 그냥 지금 값에서 최소값을 빼면 된다.
+2. 따라서, 최소 값은 그때마다 O(n)을 사용할 필요가 없다.
+3. **어차피, for문을 돌면서 모든 값을 거칠 것이니 최소값을 갱신하면 된다.**
+
+![img_1.png](img_1.png)
+```python
+    for i in range(1, len(A)):
+        min_value = min(min_value, A[i])
+        result = max(result, A[i] - min_value)
+```
+
+### MaxSlice
+🔗 문제: https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_slice_sum/  
+❗️ 배운점: 최대 부분합을 구하는 알고리즘 외우자 ... 
+![img_1.png](img_1.png)
+
+### MaxDoubleSliceSum
+🔗 문제: https://app.codility.com/programmers/lessons/9-maximum_slice_problem/max_double_slice_sum/  
+❗️ 배운점: 알고리즘 해결 방법 ... 왼쪽 합과 오른쪽 합을 이용해서 O(n)의 시간 복잡도로 끝냈다. 알아두면 무조건 좋을 해결 방법인 것 같다.
+```python
+def solution(A):
+    left_sum = [0] * len(A)
+    right_sum = [0] * len(A)
+
+    for i in range(1, len(A)):
+        left_sum[i] = max(0, left_sum[i-1] + A[i])
+
+    for i in range(len(A) - 2, -1, -1):
+        right_sum[i] = max(0, right_sum[i + 1] + A[i])
+
+    result = 0
+    for i in range(1, len(A) - 1):
+        result = max(result, left_sum[i - 1] + right_sum[i + 1])
+    return result
 ```
