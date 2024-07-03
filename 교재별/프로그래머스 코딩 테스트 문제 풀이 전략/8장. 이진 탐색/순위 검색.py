@@ -12,7 +12,7 @@ def bisect_left(score, x):
 
 def solution(info, query):
     dictionary = dict()
-    for language in ["cpp", "java", "python", "-"]:
+    for language in ["cpp", "java", "파이썬_문법", "-"]:
         for part in ["backend", "frontend", "-"]:
             for career in ["junior", "senior", "-"]:
                 for soulfood in ["chicken", "pizza", "-"]:
@@ -26,7 +26,7 @@ def solution(info, query):
                     for soulfood in [data[3], "-"]:
                         dictionary[language + part + career + soulfood].append(int(data[4]))
 
-    for language in ["cpp", "java", "python", "-"]:
+    for language in ["cpp", "java", "파이썬_문법", "-"]:
         for part in ["backend", "frontend", "-"]:
             for career in ["junior", "senior", "-"]:
                 for soulfood in ["chicken", "pizza", "-"]:
@@ -42,4 +42,4 @@ def solution(info, query):
     return answer
 
 # [1, 1, 1, 1, 2, 4]
-print(solution(["java backend junior pizza 150", "python frontend senior chicken 210", "python frontend senior chicken 150", "cpp backend senior pizza 260", "java backend junior chicken 80", "python backend senior chicken 50"], ["java and backend and junior and pizza 100", "python and frontend and senior and chicken 200", "cpp and - and senior and pizza 250", "- and backend and senior and - 150", "- and - and - and chicken 100", "- and - and - and - 150"]))
+print(solution(["java backend junior pizza 150", "파이썬_문법 frontend senior chicken 210", "파이썬_문법 frontend senior chicken 150", "cpp backend senior pizza 260", "java backend junior chicken 80", "파이썬_문법 backend senior chicken 50"], ["java and backend and junior and pizza 100", "파이썬_문법 and frontend and senior and chicken 200", "cpp and - and senior and pizza 250", "- and backend and senior and - 150", "- and - and - and chicken 100", "- and - and - and - 150"]))
