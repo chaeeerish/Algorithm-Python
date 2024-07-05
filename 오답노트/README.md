@@ -277,3 +277,16 @@ def solution(A):
         result = max(result, left_sum[i - 1] + right_sum[i + 1])
     return result
 ```
+
+### 정수 삼각형
+🔗 문제: https://school.programmers.co.kr/learn/courses/30/lessons/43105#  
+❗️ 배운점: 기록할 수 있는건 무조건 기록해두자. 그게 시간을 줄이는 가장 좋은 방법이다. `DP => Dynamic Programming`
+
+### 등굣길
+🔗 문제: https://school.programmers.co.kr/learn/courses/30/lessons/42898#  
+❗️ 배운점  
+1️⃣ 문제를 완전 잘못 이해 => 최단 경로인줄 알았는데 최단 경로의 개수 였음 ...  
+2️⃣ 뭐에 홀렸는지 최단경로 계산하는 방법을 완전히 다르게 했다 ...  
+3️⃣ 다음과 같은 방법은 최단 경로가 아니라 출발지에서 목적지까지 도착할 수 있는 경로의 개수를 나타내는 식이다.  
+![img_2.png](img_2.png)  
+(출처: https://dev-note-97.tistory.com/141)
