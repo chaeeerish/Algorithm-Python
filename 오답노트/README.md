@@ -333,3 +333,38 @@ def solution(A):
                     board[i][j] = -1
 ```
 3️⃣ 승패 관계가 n-1개 정해진 선수에 대해서 모든 승패가 결정되었다고 판단한다.  
+
+### 길 찾기 게임
+🔗 문제: https://school.programmers.co.kr/learn/courses/30/lessons/42892  
+❗️ 배운점  
+1️⃣ `런타임 에러`에서 재귀 깊이를 늘렸더니 해결되었다. 
+```python
+import sys
+sys.setrecursionlimit(10**6)
+```
+2️⃣ **트리를 클래스로 만들었다.**
+```python
+class Node:
+    def __init__(self, item, x, y):
+        self.item = item
+        self.x = x
+        self.y = y
+        self.left = None
+        self.right = None
+
+    def get_left_item(self):
+        if self.left is None:
+            return 0
+        else:
+            return self.left.item
+
+    def get_right_item(self):
+        if self.right is None:
+            return 0
+        else:
+            return self.right.item
+
+class BinaryTree:
+    def __init__(self, root):
+        self.root = root
+```
