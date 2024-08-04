@@ -309,3 +309,27 @@ def solution(A):
                 if new_bin < cand and new_bin > number:
                     cand = new_bin
 ```
+
+### 순위
+🔗 문제: https://school.programmers.co.kr/learn/courses/30/lessons/49191#  
+❗️ 배운점   
+1️⃣ 먼저, board라는 2차원 배열에 각 간선에 대한 정보를 업데이트하고 앞으로는 board만 사용한다.  
+```python
+    for a, b in results:
+        board[a - 1][b - 1] = 1
+        board[b - 1][a - 1] = -1
+```
+2️⃣ 플로이드-와샬 알고리즘을 적용하여 중간 경유점을 통해 i와 j의 승패 관계를 도출한다.  
+```python
+    for k in range(n):
+        for i in range(n):
+            for j in range(n):
+                if i == j or board[i][j] in [1, -1]:
+                    continue
+                if board[i][k] == board[k][j] == 1:
+                    board[i][j] = 1
+
+                if board[i][k] == board[k][j] == -1:
+                    board[i][j] = -1
+```
+3️⃣ 승패 관계가 n-1개 정해진 선수에 대해서 모든 승패가 결정되었다고 판단한다.  
