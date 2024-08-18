@@ -383,3 +383,14 @@ heapq.heappush(heap, 20)
 
 print(heap)
 ```
+
+### 보석 쇼핑
+🔗 문제: https://school.programmers.co.kr/learn/courses/30/lessons/67258  
+❗️ 배운점  
+**효율성 통과를 위한 노력**  
+1️⃣ 이중 for문 절대 안됨 X
+2️⃣ itertools 절대 안됨 X  
+3️⃣ 슬라이딩 윈도우 방식 (start와 end 포인터를 이용해서 윈도우를 확장시키거나 축소시킨다.)  
+4️⃣ while문 내에서 리스트 인덱스 절대 안됨 X (`if set(gems[start:end+1]) == type:`)  
+5️⃣ 리스트, 집합은 O(1), O(N)의 시간복잡도를 가지므로 `Dict` 자료구조를 사용하였다.  
+6️⃣ 그럼에도 불구하고, Dict.keys()에서 효율성이 초과되었다. => 따라서, valdiate_count를 이용하여 변수에 보석의 개수를 관리하였다.  

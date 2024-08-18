@@ -21,10 +21,7 @@ def solution(gems):
     validate_count = 2
 
     while start <= len(gems) - 1 and end <= len(gems) - 1:
-        # print("start, end =", start, end)
-        # print(cand)
         if validate_count == len(type):
-            # print("위는 TRUE")
             if end - start + 1 < min_length:
                 min_length = end - start + 1
                 min_start = start
