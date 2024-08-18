@@ -368,3 +368,18 @@ class BinaryTree:
     def __init__(self, root):
         self.root = root
 ```
+
+### 디스크 컨트롤러
+🔗 문제: https://school.programmers.co.kr/learn/courses/30/lessons/42627  
+❗️ 배운점: 문제를 해결하는 방식조차 생각하지 못했다. 다시 무조건 풀어봐야겠다.  
+```python
+# 파이썬 최소힙
+import heapq
+
+heap = []
+heapq.heappush(heap, 50)
+heapq.heappush(heap, 10)
+heapq.heappush(heap, 20)
+
+print(heap)
+```
